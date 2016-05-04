@@ -6,7 +6,10 @@
  * Date: 04/05/2016
  * Time: 09:54
  */
+
+require 'connect.php';
 class article
+
 {
 
 
@@ -37,9 +40,11 @@ class article
 
     private $categorie;
 
+    public $pdo;
     /**
      * @return mixed
      */
+
     public function getCategorie()
     {
         return $this->categorie;
@@ -138,26 +143,30 @@ class article
     /**
      *
      */
-    public function Ajouter($nouvarticle, $pdo)
+    public function Ajouter($nouvarticle)
     {
 
+
+require 'db.class.php';
+
+
+       $pdo =  new DB();
 
         $titre = $nouvarticle->getTitre();
 
 
         //$auteur = $nouvarticle->getAuteur();
         $auteur = 1;
-        
+
         //$categorie = $nouvarticle->getCategorie();
         $categorie = 1;
-        
+
         $contenu = $nouvarticle->getContenu();
 
 
         $sql = "INSERT INTO projets (titre, auteur, categorie, contenu, date) VALUES (?, ?, ?, ?, NOW())";
-
-        $stmt = $pdo->prepare($sql);
-        $stmt->execute([$titre,$auteur,$categorie, $contenu]);
+        $stmt = $pdo->getBdd()->prepare($sql);
+        $stmt->execute([$titre, $auteur, $categorie, $contenu]);
 
 
     }
@@ -167,16 +176,60 @@ class article
      */
     public function Vu()
     {
-        // sql requete
-    }
+
+        require 'db.class.php';
+        $pdo =  new DB();
+
+
+
+
+        $sql = "SELECT * FROM  projets  WHERE active= ?";
+       $stmt = $pdo->getBdd()->prepare($sql);
+
+        $stmt->execute([true]);
+        
+        
+        
+        $result = $stmt->fetchAll(PDO::FETCH_OBJ);
+
+
+
+
+
+
+
+    return $result;
+
+}
+    
 
 
     /**
      *
      */
-    public function Supprimer()
+    public function Supprimer($id)
     {
-        // sql requete
+
+
+
+
+
+        require 'db.class.php';
+        $pdo =  new DB();
+
+
+
+
+        $sql = "UPDATE projets SET active  WHERE id= ?";
+        $stmt = $pdo->getBdd()->prepare($sql);
+
+        $resultat = $stmt->execute([$id]);
+        
+        
+        
+        return $resultat;
+        
+     
     }
 
 

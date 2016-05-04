@@ -40,7 +40,7 @@ if (isset($_POST['addpost'])) {
     //$data = $req->fetch(PDO::FETCH_ASSOC);
     //$data = $data['username'];
 
- $nouvarticle->Ajouter($nouvarticle,$pdo);
+ $nouvarticle->Ajouter($nouvarticle);
 
 
     echo "L'article a bien été ajouté";

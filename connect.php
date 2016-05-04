@@ -25,7 +25,8 @@ $pdoOptions = array(
 /**
  * Connect to MySQL and instantiate the PDO object.
  */
-$pdo = new PDO(
+ 
+$pdo= new PDO(
     "mysql:host=" . MYSQL_HOST . ";dbname=" . MYSQL_DATABASE, //DSN
     MYSQL_USER, //Username
     MYSQL_PASSWORD, //Password

@@ -9,7 +9,15 @@
 </form>
 </html>
 
-<?php
 
-$req = $DB->
+<a href="AjouteArticle.php">< Ajouter un article/a>
+
+    <br>
+    <br>
+    <br>
+    <br>
+    <a href="vu.php"> voir les article </a>
+
+ 
+
 

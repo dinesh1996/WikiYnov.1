@@ -1,12 +1,12 @@
 <?php
 
-class DB
+class DB extends PDO
 {
 
     private $host = 'localhost';
     private $username = 'root';
-    private $password = '';
-    private $database = 'wiki';
+    private $password = 'root';
+    private $database = 'wiki-ynov';
     private $db;
 
     public function __construct($host = null, $username = null, $password = null, $database = null)
@@ -35,10 +35,10 @@ class DB
     }
 
 
-    public function query()
+    public function query($sql)
     {
         $req = $this->db->prepare($sql);
-        $req->execute();
+        $req->execute([]);
         return $req->fetchAll(PDO::FETCH_OBJ);
     }
 
