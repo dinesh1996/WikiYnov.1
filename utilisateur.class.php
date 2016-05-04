@@ -1,27 +1,15 @@
 <?php
-require_once 'db.class.php';
 
 class utilisateur
 {
-    public function __construct($login = null, $password = null, $email = null)
+
+
+    public function verifuser($BDD, $login, $password)
     {
-        $this->login = $login;
-        $this->password = $password;
-        $this->email = $email;
-        $db = new DB();
-        $this->db = $db->getBDD();
-    }
-
-
-    public function verif_user(){
-        $req = $DB->query("SELECT * FROM wiki WHERE login =  ")
+        $req = $BDD->query("SELECT * FROM users WHERE login = '$login' AND password = '$password' ");
+        while ($raq = $req->fetch()) {
+            echo $raq['login'];
+        }
 
     }
-
-
-    /* function connection ($DB){
-
-     }*/
 }
-
-
