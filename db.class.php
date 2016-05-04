@@ -1,6 +1,8 @@
 <?php
 
 class DB extends PDO
+
+
 {
 
     private $host = 'localhost';
