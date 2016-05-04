@@ -142,26 +142,22 @@ class article
     {
 
 
-        $titre = strval($nouvarticle->getTitre());
+        $titre = $nouvarticle->getTitre();
 
 
-        $auteur = strval($nouvarticle->getAuteur());
+        //$auteur = $nouvarticle->getAuteur();
+        $auteur = 1;
         
-        $categorie = strval($nouvarticle->getCategorie());
+        //$categorie = $nouvarticle->getCategorie();
+        $categorie = 1;
         
-        $contenu = strval($nouvarticle->getContenu());
+        $contenu = $nouvarticle->getContenu();
 
 
-        $auteur = addslashes($auteur);
-        $categorie = addslashes($categorie);
-        $titre = addslashes($titre);
-        $contenu = addslashes($contenu);
-
-
-        $sql = "INSERT INTO projets (titre, auteur, categorie, contenu, date) VALUES (' $titre','$auteur','$categorie', '$contenu', NOW())";
+        $sql = "INSERT INTO projets (titre, auteur, categorie, contenu, date) VALUES (?, ?, ?, ?, NOW())";
 
         $stmt = $pdo->prepare($sql);
-        $stmt->execute();
+        $stmt->execute([$titre,$auteur,$categorie, $contenu]);
 
 
     }
