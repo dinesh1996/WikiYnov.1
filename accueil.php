@@ -4,8 +4,7 @@ require 'db.class.php';
 require 'utilisateur.class.php';
 
 
-
-if (isset($_POST['connexion'])){
+if (isset($_POST['connexion'])) {
     $user = new utilisateur($_POST['login'], $_POST['password']);
     $user->connexion();
 }
@@ -20,5 +19,13 @@ if (isset($_POST['connexion'])){
         <button type="submit" name="connexion">Se connecter</button>
     </div>
 </form>
+<form action="" method="post">
+    <button  name="mdp" type="submit">motde passe oublié</button>
+</form>
+<?php if (isset($_POST['mdp'])) {
+    echo "<h4>Votre adresse email</h4><form><input type='email'>
+ <button type='submit'>ok</button></form>";
+} ?>
+
 </html>
 

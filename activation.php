@@ -14,7 +14,7 @@ if (count($req) == 1) {
 
         $maj = $DB->insert("UPDATE users SET actif = 1  WHERE login = '$prenom' AND password = '$nom'");
         echo "Felicitation votre compte a bien ete active !!!!</br>";
-        echo '<a href="NoLogged/index.php">Cliquez ici pour vous connecter!</a>';
+        echo '<a href="accueil.php">Cliquez ici pour vous connecter!</a>';
     } else
         echo "votre compte a deja ete valide";
 

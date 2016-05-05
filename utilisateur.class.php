@@ -9,7 +9,7 @@ class utilisateur
     private $rang;
 
 
-    public function __construct($prenom = null, $nom = null, $email = null, $DB = null, $rang=null)
+    public function __construct($prenom = null, $nom = null, $email = null, $DB = null, $rang = null)
     {
         $this->prenom = $prenom;
         $this->nom = $nom;
@@ -26,24 +26,30 @@ class utilisateur
             return true;
         } else
             echo '<script>alert("Votre compte existe déjà, veuillez contacter l\'administration.")</script>';
-            return false;
+        return false;
 
     }
 
-    public function connexion(){
+    public function connexion()
+    {
         $res = $this->DB->requete("SELECT * FROM users WHERE login = '$this->prenom' AND password = '$this->nom' AND actif = true");
-        foreach ($res as $cle):
-        if (count($res) == 1){
-           $_SESSION['session'] = array(
-              'prenom' => $this->prenom,
-               'nom' => $this->nom,
-               'rang'=> $cle->rang
-           );
+
+        if (count($res) == 1) {
+            foreach ($res as $cle):
+                $_SESSION['session'] = array(
+                    'prenom' => $this->prenom,
+                    'nom' => $this->nom,
+                    'rang' => $cle->rang
+
+
+                );
+            endforeach;
+
             var_dump($_SESSION);
 
 
-        }
-        endforeach;
+        } else
+            echo '<script>alert("Vos identifiants de connexion sont mauvais ou votre compte n\'a pas été activé.")</script>';
 
 
     }
@@ -53,6 +59,11 @@ class utilisateur
         $mail = new mail;
         $mail->mailIns($this->email, $cle, $this->prenom, $this->nom);
         $this->DB->insert("INSERT INTO users VALUES ('', '$this->prenom', '$this->nom','$this->email', '$cle', '0',  '') ");
+    }
+
+    public function setRang($rang)
+    {
+        $this->rang = $rang;
     }
 
 }
