@@ -29,6 +29,7 @@ class utilisateur
 
     public function coucou()
     {
-        echo 'salut';
+        echo 'salu';
     }
+
 }

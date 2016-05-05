@@ -2,6 +2,8 @@
 session_start();
 require 'db.class.php';
 require 'utilisateur.class.php';
+require 'mail.class.php';
+require 'mail.inscription.php';
 
 if (isset ($_POST['inscription']) && !empty ($_POST['prenom']) && !empty ($_POST['nom'])) {
 
@@ -13,6 +15,13 @@ if (isset ($_POST['inscription']) && !empty ($_POST['prenom']) && !empty ($_POST
     $user = new utilisateur($prenom, $nom, $email);
     var_dump($user);
     $user->verifuser();
+    $mail = new mail();
+    var_dump($mail);
+    $mail->setMessage($message_ins);
+    var_dump($mail);
+
+
+
 }
 
 ?>
