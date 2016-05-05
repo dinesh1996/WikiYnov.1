@@ -39,7 +39,7 @@ echo '</pre>';
             foreach ($resultat as $data): ?>
                 <div>
                     <h2>
-                        <?php echo "<a href='newsvu.php?id={$data->id}' > {$data->titre} </a>" ?>
+                        <?php echo "<a href='vuprojet.php?id={$data->id}' > {$data->titre} </a>" ?>
                     </h2>
                 </div>
                 <div>
@@ -50,7 +50,7 @@ echo '</pre>';
                 <div>
                     <p>
                         <?php $extrait = substr($data->contenu, 0, 400);
-                        echo " '$extrait' <a href='newsvu.php?id={$data->id}' "; ?> >...Lire la suite</a>
+                        echo " '$extrait' <a href='vuprojet.php?id={$data->id}' "; ?> >...Lire la suite</a>
                     </p>
                 </div>
                 <div>

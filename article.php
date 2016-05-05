@@ -202,6 +202,20 @@ require 'db.class.php';
 
 }
     
+    
+    public function Vuprojet($id)
+    {
+
+        require 'db.class.php';
+        $pdo =  new DB();
+        
+        $sqlv = "SELECT * FROM projets WHERE id LIKE ? ";
+        $req = $pdo->getBdd()->prepare($sqlv);
+        $req->execute([$id]);
+        $resultat = $req->fetch(PDO::FETCH_OBJ);
+        return $resultat;
+    }
+    
 
 
     /**
@@ -216,14 +230,12 @@ require 'db.class.php';
 
         require 'db.class.php';
         $pdo =  new DB();
+        
 
-
-
-
-        $sql = "UPDATE projets SET active  WHERE id= ?";
+        $sql = "UPDATE projets SET active=?  WHERE id= ?";
         $stmt = $pdo->getBdd()->prepare($sql);
 
-        $resultat = $stmt->execute([$id]);
+        $resultat = $stmt->execute([FALSE,$id]);
         
         
         
