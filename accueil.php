@@ -1,3 +1,16 @@
+<?php
+session_start();
+require 'db.class.php';
+require 'utilisateur.class.php';
+
+
+
+if (isset($_POST['connexion'])){
+    $user = new utilisateur($_POST['login'], $_POST['password']);
+    $user->connexion();
+}
+?>
+
 <html>
 <h1>Connection</h1>
 <form action="" method="post">
@@ -8,8 +21,4 @@
     </div>
 </form>
 </html>
-
-<?php
-
-$req = $DB->
 
