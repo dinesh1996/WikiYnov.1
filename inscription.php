@@ -2,15 +2,18 @@
 session_start();
 require 'db.class.php';
 require 'utilisateur.class.php';
-$DB = new DB();
-$req = $DB->requete('SELECT * FROM users');
-foreach ($req as $cle):
 
-echo $cle->login;
+if (isset ($_POST['inscription']) && !empty ($_POST['prenom']) && !empty ($_POST['nom'])) {
 
-endforeach;
+    $prenom = htmlspecialchars($_POST['prenom']);
+    $nom = htmlspecialchars($_POST['nom']);
+    $email = $prenom . "." . $nom . "@ynov.com";
 
 
+    $user = new utilisateur($prenom, $nom, $email);
+    var_dump($user);
+    $user->verifuser();
+}
 
 ?>
 
