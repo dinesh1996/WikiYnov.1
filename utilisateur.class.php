@@ -21,15 +21,18 @@ class utilisateur
 
         $res = $this->DB->requete("SELECT id_user FROM users WHERE login = '$this->prenom' AND password = '$this->nom'");
         if (count($res) == 0) {
-            $this->coucou();
+            return true;
         } else
             echo '<script>alert("Votre compte existe déjà, veuillez contacter l\'administration.")</script>';
+            return false;
 
     }
 
-    public function coucou()
+    public function insertUser($cle)
     {
-        echo 'salu';
+        $mail = new mail;
+        $mail->mailIns($this->email, $cle, $this->prenom, $this->nom);
+        $this->DB->insert("INSERT INTO users VALUES ('', '$this->prenom', '$this->nom','$this->email', '$cle', '0',  '') ");
     }
 
 }

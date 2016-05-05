@@ -1,12 +1,5 @@
 <?php
 session_start();
-try {
-    $BDD = new PDO ('mysql:host=localhost;dbname=testphp', 'root', '');
-} catch (PDOException $e) {
-    echo 'connexion impossible : ' . $e->getMessage();
-}
-require 'utilisateur.class.php';
-
 if (isset($_POST['inscription'])) {
     if (!empty ($_POST['login']) && !empty($_POST['password']) && !empty($_POST['email'])) {
         $login = htmlspecialchars(addslashes(trim($_POST['login'])));

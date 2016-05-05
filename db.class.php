@@ -30,9 +30,16 @@ class DB
 
     public function requete($stmt, $data = array())
     {
-        $req =$this->pdo->prepare($stmt);
+        $req = $this->pdo->prepare($stmt);
         $req->execute($data);
         return $req->fetchAll(PDO::FETCH_OBJ);
+    }
+
+    public function insert($sql, $data = array())
+    {
+        $req = $this->pdo->prepare($sql);
+        $req->execute($data);
+        return $req;
     }
 
 }

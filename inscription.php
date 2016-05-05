@@ -10,15 +10,12 @@ if (isset ($_POST['inscription']) && !empty ($_POST['prenom']) && !empty ($_POST
     $prenom = htmlspecialchars($_POST['prenom']);
     $nom = htmlspecialchars($_POST['nom']);
     $email = $prenom . "." . $nom . "@ynov.com";
-
-
     $user = new utilisateur($prenom, $nom, $email);
-    var_dump($user);
-    $user->verifuser();
-    $mail = new mail();
-    var_dump($mail);
-    $mail->setMessage($message_ins);
-    var_dump($mail);
+    if($user->verifuser()){
+        $mail = new mail();
+        $cle = md5(microtime(TRUE) * 3);
+        $user->insertUser($cle);
+    }
 
 
 
