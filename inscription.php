@@ -3,7 +3,6 @@ session_start();
 require 'db.class.php';
 require 'utilisateur.class.php';
 require 'mail.class.php';
-require 'mail.inscription.php';
 
 if (isset ($_POST['inscription']) && !empty ($_POST['prenom']) && !empty ($_POST['nom'])) {
 

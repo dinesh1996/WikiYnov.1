@@ -37,6 +37,7 @@ class utilisateur
         if (count($res) == 1) {
             foreach ($res as $cle):
                 $_SESSION['session'] = array(
+                    'id' => $cle->id_user,
                     'prenom' => $this->prenom,
                     'nom' => $this->nom,
                     'rang' => $cle->rang
@@ -54,7 +55,8 @@ class utilisateur
 
     }
 
-    public function deconnexion(){
+    public function deconnexion()
+    {
         session_destroy();
     }
 
@@ -68,6 +70,11 @@ class utilisateur
     public function setRang($rang)
     {
         $this->rang = $rang;
+    }
+
+    public function modRang($id, $rang)
+    {
+        $this->DB->insert("UPDATE users SET rang = '$rang' WHERE id_user = '$id'");
     }
 
 }
