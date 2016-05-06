@@ -1,6 +1,3 @@
-
-
-
 <?php
 /**
  * Created by PhpStorm.
@@ -10,12 +7,17 @@
  */
 
 
-include 'article.php';
-include 'connect.php';
+
+
+require '../categories.php';
+require '../article.php';
+
 error_reporting(E_ALL);
 ini_set("display_errors", 1);
 
 $nouvarticle = new article();
+$categoriechoix = new categories();
+$categoriechoix = $categoriechoix->AdminVuCategorie();
 
 
 //$categories = $pdo->query("SELECT * FROM categories");
@@ -29,7 +31,6 @@ if (isset($_POST['addpost'])) {
     echo '<pre>';
     echo var_dump($nouvarticle);
     echo '</per>';
- 
 
 
     //$sqlv = "SELECT username FROM users WHERE id LIKE ? ";
@@ -40,7 +41,7 @@ if (isset($_POST['addpost'])) {
     //$data = $req->fetch(PDO::FETCH_ASSOC);
     //$data = $data['username'];
 
- $nouvarticle->Ajouter($nouvarticle);
+    $nouvarticle->Ajouter($nouvarticle);
 
 
     echo "L'article a bien été ajouté";
@@ -55,10 +56,9 @@ if (isset($_POST['addpost'])) {
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-    <title> </title>
+    <title></title>
 
 <body>
-
 
 
 <!-- Content -->
@@ -92,8 +92,8 @@ if (isset($_POST['addpost'])) {
                 <div class="form-item">
                     <label for="categorie">Choisissez une catégorie</label>
                     <select id="categorie" name="categorie">
-                        <?php foreach ($categories as $data): ?>
-                            <option value="<?php echo $data['categorie']; ?>"><?php echo $data['categorie']; ?></option>
+                        <?php foreach ($categoriechoix as $data): ?>
+                            <option value="<?php echo $data->titre; ?>"><?php echo $data->titre; ?></option>
                         <?php endforeach; ?>
                     </select>
                 </div>

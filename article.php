@@ -6,8 +6,6 @@
  * Date: 04/05/2016
  * Time: 09:54
  */
-
-require 'connect.php';
 class article
 
 {
@@ -41,6 +39,7 @@ class article
     private $categorie;
 
     public $pdo;
+
     /**
      * @return mixed
      */
@@ -146,11 +145,10 @@ class article
     public function Ajouter($nouvarticle)
     {
 
+        require_once 'db.class.php';
 
-require 'db.class.php';
 
-
-       $pdo =  new DB();
+        $pdo = new DB();
 
         $titre = $nouvarticle->getTitre();
 
@@ -158,8 +156,8 @@ require 'db.class.php';
         //$auteur = $nouvarticle->getAuteur();
         $auteur = 1;
 
-        //$categorie = $nouvarticle->getCategorie();
-        $categorie = 1;
+        $categorie = $nouvarticle->getCategorie();
+        // $categorie = 1;
 
         $contenu = $nouvarticle->getContenu();
 
@@ -177,45 +175,57 @@ require 'db.class.php';
     public function Vu()
     {
 
-        require 'db.class.php';
-        $pdo =  new DB();
-
-
+        require_once 'db.class.php';
+        $pdo = new DB();
 
 
         $sql = "SELECT * FROM  projets  WHERE active= ?";
-       $stmt = $pdo->getBdd()->prepare($sql);
+        $stmt = $pdo->getBdd()->prepare($sql);
 
         $stmt->execute([true]);
-        
-        
-        
+
+
         $result = $stmt->fetchAll(PDO::FETCH_OBJ);
 
 
+        return $result;
+
+    }
 
 
+    public function AdminVu()
+    {
+
+        require_once 'db.class.php';
+        $pdo = new DB();
 
 
+        $sql = "SELECT * FROM  projets ";
+        $stmt = $pdo->getBdd()->prepare($sql);
 
-    return $result;
+        $stmt->execute([]);
 
-}
-    
-    
+
+        $result = $stmt->fetchAll(PDO::FETCH_OBJ);
+
+
+        return $result;
+
+    }
+
+
     public function Vuprojet($id)
     {
 
-        require 'db.class.php';
-        $pdo =  new DB();
-        
+        require_once 'db.class.php';
+        $pdo = new DB();
+
         $sqlv = "SELECT * FROM projets WHERE id LIKE ? ";
         $req = $pdo->getBdd()->prepare($sqlv);
         $req->execute([$id]);
         $resultat = $req->fetch(PDO::FETCH_OBJ);
         return $resultat;
     }
-    
 
 
     /**
@@ -225,23 +235,19 @@ require 'db.class.php';
     {
 
 
+        require_once 'db.class.php';
+        $pdo = new DB();
 
-
-
-        require 'db.class.php';
-        $pdo =  new DB();
-        
 
         $sql = "UPDATE projets SET active=?  WHERE id= ?";
         $stmt = $pdo->getBdd()->prepare($sql);
 
-        $resultat = $stmt->execute([FALSE,$id]);
-        
-        
-        
+        $resultat = $stmt->execute([FALSE, $id]);
+
+
         return $resultat;
-        
-     
+
+
     }
 
 
@@ -250,8 +256,16 @@ require 'db.class.php';
      */
     public function MiseAJour()
     {
-        // sql requete
+        require_once 'db.class.php';
+        $pdo = new DB();
+
+
+       
+    
+            $amodif = $pdo->query("SELECT * FROM projets WHERE id={$_GET['id']}");
+            return $amodif;
+
+        
+
     }
-
-
 }
