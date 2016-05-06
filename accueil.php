@@ -8,6 +8,16 @@ if (isset($_POST['connexion'])) {
     $user = new utilisateur($_POST['login'], $_POST['password']);
     $user->connexion();
 }
+if (isset($_SESSION['session'])) {
+    echo '<form method="post"><button type="submit" name="deco">deconnexion</button></form>';
+    if (isset($_POST['deco'])) {
+        $user = new utilisateur($_SESSION['session']['prenom'], $_SESSION['session']['nom']);
+        $user->deconnexion();
+        echo '<script>document.location = "accueil.php"</script>';
+    }
+}
+
+
 ?>
 
 <html>
@@ -20,7 +30,7 @@ if (isset($_POST['connexion'])) {
     </div>
 </form>
 <form action="" method="post">
-    <button  name="mdp" type="submit">motde passe oublié</button>
+    <button name="mdp" type="submit">motde passe oublié</button>
 </form>
 <?php if (isset($_POST['mdp'])) {
     echo "<h4>Votre adresse email</h4><form><input type='email'>

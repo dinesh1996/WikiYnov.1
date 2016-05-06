@@ -54,6 +54,10 @@ class utilisateur
 
     }
 
+    public function deconnexion(){
+        session_destroy();
+    }
+
     public function insertUser($cle)
     {
         $mail = new mail;
