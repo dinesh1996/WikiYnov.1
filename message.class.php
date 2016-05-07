@@ -26,13 +26,19 @@ class message
         }
     }
 
+    public function insertMess()
+    {
+        $this->DB->insert("INSERT INTO message VALUES ('', '$this->id_destin', '$this->message' , '$this->expediteur')");
+    }
+
     public function verifDesti()
     {
-        $res = $this->DB->query("SELECT id_user FROM users WHERE login LIKE '$this->destinataire'");
+        $res = $this->DB->query("SELECT id_user FROM users WHERE prenom LIKE '$this->destinataire'");
         if ($res->id_user != 0) {
             $this->id_destin = $res->id_user;
             return true;
         }
     }
+
 
 }

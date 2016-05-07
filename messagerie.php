@@ -17,10 +17,14 @@
 session_start();
 require 'message.class.php';
 require 'utilisateur.class.php';
+
+if (!isset($_SESSION['session']))
+    header('location:accueil.php');
+
 if (isset($_POST['envoi'])) {
     if (!empty ($_POST['dest']) && !empty($_POST['message'])) {
         $destin = htmlspecialchars(trim($_POST['dest']));
-        $mess = htmlspecialchars(trim(addslashes($_POST['message'])));
+        $mess = htmlspecialchars(addslashes($_POST['message']));
         $db = new DB;
         $mes = new message($_SESSION['session']['id'], $destin, $mess);
         if ($mes->insertMessage())

@@ -23,7 +23,7 @@ foreach ($req as $utilisateur):
     <title>Document</title>
 </head>
 <body>
-<?= $utilisateur->login . " " . $utilisateur->password . " " . $utilisateur->rang; ?>
+<?= $utilisateur->prenom . " " . $utilisateur->nom . " " . $utilisateur->rang; ?>
 <form method="post"><input name="id_user" value="<?= $utilisateur->id_user ?>" type="hidden">
     <select name="choixrang" id="">
         <option value="abonné" <?php if ($utilisateur->rang == 'abonné') echo ' selected disabled' ?>>abonné</option>

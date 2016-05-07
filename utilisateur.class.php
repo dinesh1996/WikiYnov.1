@@ -21,7 +21,7 @@ class utilisateur
     public function verifuser()
     {
 
-        $res = $this->DB->requete("SELECT id_user FROM users WHERE login = '$this->prenom' AND password = '$this->nom'");
+        $res = $this->DB->requete("SELECT id_user FROM users WHERE prenom = '$this->prenom' AND nom = '$this->nom'");
         if (count($res) == 0) {
             return true;
         } else
@@ -32,7 +32,7 @@ class utilisateur
 
     public function connexion()
     {
-        $res = $this->DB->requete("SELECT * FROM users WHERE login = '$this->prenom' AND password = '$this->nom' AND actif = true");
+        $res = $this->DB->requete("SELECT * FROM users WHERE prenom = '$this->prenom' AND nom = '$this->nom' AND actif = true");
 
         if (count($res) == 1) {
             foreach ($res as $cle):
