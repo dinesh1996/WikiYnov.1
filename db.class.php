@@ -35,6 +35,13 @@ class DB
         return $req->fetchAll(PDO::FETCH_OBJ);
     }
 
+    public function query($sql)
+    {
+        $req =$this->pdo->prepare($sql);
+        $req->execute();
+        return $req->fetch(PDO::FETCH_OBJ);
+    }
+
     public function insert($sql, $data = array())
     {
         $req = $this->pdo->prepare($sql);
