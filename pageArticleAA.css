@@ -4,3 +4,167 @@ footer
     height:200px;
     background-color:transparent;
 }
+
+/* block dimension */
+.articlePanel200
+{
+    width:150px; 
+    height:150px;
+    overflow: hidden;
+    position: absolute;
+}
+
+.articlePanel400
+{
+    width:315px; 
+    height:150px;
+    overflow: hidden;
+    position: absolute;
+}
+
+.articlesPanel
+{
+    width:1200px;
+    height:700px;
+    position: relative;
+    margin-left: 130px;
+    background-color:#116063
+}
+
+/* Font*/
+.articleTitle
+{
+    color:white;
+    size:13px;
+    position: relative;
+}
+
+.articleContent
+{
+    color:white;
+    size:6px;
+    position: relative;
+    visibility: hidden;
+}
+.articlePanel400:hover .articleTitle,
+.articlePanel200:hover .articleTitle
+{
+    top:-100%;
+    visibility: hidden;
+    animation-name: animationVanish;
+    animation-duration: 1s;
+}
+
+.articlePanel400:hover .articleContent,
+.articlePanel200:hover .articleContent
+{
+    visibility: visible;
+    top:-100%;
+    animation-name: animationAppear;
+    animation-duration: 1s;
+}
+
+@keyframes animationVanish {
+    0%   {top:0%;visibility: visible;}
+    100% {top:-100%;visibility: hidden;}
+}
+
+@keyframes animationAppear {
+    0%   {top:0%;visibility: visible;}
+    100% {top:-100%;visibility: visible;}
+}
+
+/* block color */
+.blockLime
+{
+    background-color:Lime;
+}
+.blockRoyalBlue
+{
+    background-color:RoyalBlue;
+}
+.blockBlueViolet
+{
+    background-color:BlueViolet;
+}
+.blockPink
+{
+    background-color:rgb(255, 150, 172);
+}
+.blockBrown
+{
+    background-color:brown;
+}
+.blockTomato
+{
+    background-color:Tomato;
+}
+.blockBack
+{
+    background-color:rgb(64,127,130);
+}
+.blockLimeGreen
+{
+    background-color: LimeGreen;
+}
+.blockVioletRed
+{
+    background-color: #D02090;
+}
+
+
+/* Block position*/
+
+
+.blockDecalX1
+{
+    left: 0px;
+}
+
+.blockDecalX2
+{
+    left: 165px;
+}
+
+.blockDecalX3
+{
+    left:330px;
+}
+
+.blockDecalX4
+{
+    left: 495px;
+}
+.blockDecalX6
+{
+    left: 825px;
+}
+.blockDecalX7
+{
+    left: 990px;
+}
+ 
+.blockDecalY1
+{
+    top:0px;
+}
+.blockDecalY2
+{
+    top:165px; 
+}
+
+.blockDecalY3
+{
+    top : 330px;
+}
+
+.blockDecalY4
+{
+    top : 495px;
+}
+
+
+
+
+
+
