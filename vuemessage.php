@@ -25,23 +25,25 @@ foreach ($res as $contact):?>
 
 if (isset($_GET['voir'])) {
     $exped = $_GET['id_ex'];
-    $result = $db->requete("SELECT * FROM message m INNER JOIN users u ON u.id_user = m.id_exped AND m.id_desti = '$id' AND m.id_exped = '$exped'");
-
+    $result = $db->requete("SELECT * FROM message m INNER JOIN users u ON (u.id_user = m.id_exped AND  m.id_desti = '$id' AND m.id_exped = '$exped') OR (u.id_user = m.id_desti AND m.id_desti = '$exped' AND m.id_exped = '$id')");
     foreach ($result as $newmessage):
+        $id_ex = $newmessage->id_exped;
 
         ?>
 
-        <?= $newmessage->contenu; ?> </br>
-        <?php $recup = $newmessage->id_exped;
+
+        <?php if ($id_ex == $id)
+        echo "<p style='color:red;'>" . $newmessage->contenu . "</p>";
+    else echo $newmessage->contenu ?> </br>
+    <?php //$recup = $newmessage->id_exped;
     endforeach; ?>
 
-
-    <?php $resultat = $db->requete("SELECT * FROM message m INNER JOIN users u ON u.id_user = m.id_exped AND m.id_desti = '$recup' AND m.id_exped = '$id'");
+    <?php /*$resultat = $db->requete("SELECT * FROM message m INNER JOIN users u ON u.id_user = m.id_desti AND m.id_desti = '$exped' AND m.id_exped = '$id'");
     foreach ($resultat as $reponse): ?>
         <p style="color:red;"><?= "  " . $reponse->contenu; ?></p>
         <?php
 
-    endforeach; ?>
+    endforeach; */?>
     <!doctype html>
     <html lang="en">
     <head>
