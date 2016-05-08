@@ -28,7 +28,7 @@ class message
 
     public function insertMess()
     {
-        $this->DB->insert("INSERT INTO message VALUES ('', '$this->id_destin', '$this->message' , '$this->expediteur')");
+        $this->DB->insert("INSERT INTO message VALUES ('', '$this->id_destin', '$this->message', '$this->expediteur')");
     }
 
     public function verifDesti()

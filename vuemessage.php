@@ -15,20 +15,33 @@ if (isset($_POST['repondre'])) {
     $mess->insertMess();
 }
 $db = new DB();
-$res = $db->requete("SELECT DISTINCT prenom FROM message m INNER JOIN users u ON u.id_user = m.id_exped AND m.id_desti = '$id' ");
+$res = $db->requete("SELECT DISTINCT prenom, id_exped FROM message m INNER JOIN users u ON u.id_user = m.id_exped AND m.id_desti = '$id' ");
 foreach ($res as $contact):?>
-    <form action="">
-        <?= $contact->prenom; ?> <br>
-        <button></button>
+    <form action="" method="GET">
+        <input name="id_ex" type="hidden" value="<?= $contact->id_exped ?>">
+        <button type="submit" name="voir"><?= $contact->prenom; ?></button>
     </form>
+<?php endforeach;
 
-    <?php
-endforeach;
+if (isset($_GET['voir'])) {
+    $exped = $_GET['id_ex'];
+    $result = $db->requete("SELECT * FROM message m INNER JOIN users u ON u.id_user = m.id_exped AND m.id_desti = '$id' AND m.id_exped = '$exped'");
+
+    foreach ($result as $newmessage):
+
+        ?>
+
+        <?= $newmessage->contenu; ?> </br>
+        <?php $recup = $newmessage->id_exped;
+    endforeach; ?>
 
 
-$res = $db->requete("SELECT * FROM message m INNER JOIN users u ON u.id_user = m.id_exped AND m.id_desti = '$id' ORDER BY prenom ASC");
-foreach ($res as $message):
-    ?>
+    <?php $resultat = $db->requete("SELECT * FROM message m INNER JOIN users u ON u.id_user = m.id_exped AND m.id_desti = '$recup' AND m.id_exped = '$id'");
+    foreach ($resultat as $reponse): ?>
+        <p style="color:red;"><?= "  " . $reponse->contenu; ?></p>
+        <?php
+
+    endforeach; ?>
     <!doctype html>
     <html lang="en">
     <head>
@@ -36,16 +49,13 @@ foreach ($res as $message):
         <title>Document</title>
     </head>
     <body>
-    <p>envoyé par:<?= $message->prenom ?> </p><?= $message->contenu; ?> </br>
     <form action="" method="post">
-        <input type="hidden" name="dest" value="<?= $message->id_exped ?>">
+        <input type="hidden" name="dest" value="<?php echo $exped ?>">
         <textarea name="reponse" id="" cols="30" rows="3" placeholder="Réponse..."></textarea><br>
         <button name="repondre">Repondre</button>
     </form>
-
     </body>
     </html>
     <?php
-endforeach;
-
-
+}
+?>
