@@ -5,15 +5,20 @@ class utilisateur
     private $prenom;
     private $nom;
     private $email;
+    private $login;
+    private $password;
     public $DB;
     private $rang;
 
 
-    public function __construct($prenom = null, $nom = null, $email = null, $DB = null, $rang = null)
+    public function __construct($prenom = null, $nom = null, $password = null, $email = null, $rang = 'abonné', $login = null, $DB = null)
     {
+        $this->password = $pass = sha1("bonjour" . $password);
+        $this->email = $prenom . "." . $nom . "@ynov.com";
+        $this->login = $prenom . "." . $nom;
         $this->prenom = $prenom;
         $this->nom = $nom;
-        $this->email = $email;
+        $this->email = $this->prenom . "." . $this->nom . "@ynov.com";
         $this->rang = $rang;
         $this->DB = new DB();
     }
@@ -30,19 +35,19 @@ class utilisateur
 
     }
 
+
     public function connexion()
     {
-        $res = $this->DB->requete("SELECT * FROM users WHERE prenom = '$this->prenom' AND nom = '$this->nom' AND actif = true");
+        $res = $this->DB->requete("SELECT * FROM users WHERE login = '$this->login' AND password = '$this->password' AND actif = true");
 
         if (count($res) == 1) {
             foreach ($res as $cle):
                 $_SESSION['session'] = array(
                     'id' => $cle->id_user,
-                    'prenom' => $this->prenom,
-                    'nom' => $this->nom,
+                    'prenom' => $cle->prenom,
+                    'nom' => $cle->nom,
+                    'login' => $this->login,
                     'rang' => $cle->rang
-
-
                 );
             endforeach;
 
@@ -64,12 +69,22 @@ class utilisateur
     {
         $mail = new mail;
         $mail->mailIns($this->email, $cle, $this->prenom, $this->nom);
-        $this->DB->insert("INSERT INTO users VALUES ('', '$this->prenom', '$this->nom','$this->email', '$cle', '0',  '') ");
+        $this->DB->insert("INSERT INTO users VALUES ('', '$this->prenom', '$this->nom','$this->email', '$cle', '0',  'abonné', '$this->login', '$this->password') ");
     }
 
     public function setRang($rang)
     {
         $this->rang = $rang;
+    }
+
+    public function setLogin($login)
+    {
+        $this->login = $login;
+    }
+
+    public function setPassword($password)
+    {
+        $this->password = sha1("bonjour" . $password);
     }
 
     public function modRang($id, $rang)

@@ -26,7 +26,9 @@ if (isset($_POST['envoi'])) {
         $destin = htmlspecialchars(trim($_POST['dest']));
         $mess = htmlspecialchars(addslashes($_POST['message']));
         $db = new DB;
-        $mes = new message($_SESSION['session']['id'], $destin, $mess);
+        $ss =$_SESSION['session']['id'];
+
+        $mes = new message($ss, $destin, $mess);
         if ($mes->insertMessage())
             echo '<script>alert(\'message bien envoyé\')</script>';
         else

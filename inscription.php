@@ -4,18 +4,25 @@ require 'db.class.php';
 require 'utilisateur.class.php';
 require 'mail.class.php';
 
-if (isset ($_POST['inscription']) && !empty ($_POST['prenom']) && !empty ($_POST['nom'])) {
+if (isset ($_POST['inscription'])) {
 
-    $prenom = htmlspecialchars($_POST['prenom']);
-    $nom = htmlspecialchars($_POST['nom']);
-    $email = $prenom . "." . $nom . "@ynov.com";
-    $user = new utilisateur($prenom, $nom, $email);
-    if($user->verifuser()){
-        $mail = new mail();
-        $cle = md5(microtime(TRUE) * 3);
-        $user->insertUser($cle);
-    }
+    if (!empty ($_POST['prenom']) && !empty($_POST['nom']) && !empty ($_POST['password'])) {
 
+        $prenom = strtolower(htmlspecialchars(trim($_POST['prenom'])));
+        $nom = strtolower(htmlspecialchars(trim($_POST['nom'])));
+        $pass = htmlspecialchars(trim($_POST['password']));
+       /* $email = $prenom . "." . $nom . "@ynov.com";
+        $login = $prenom . "." . $nom;*/
+        $user = new utilisateur($prenom, $nom, $pass);
+        var_dump($user);
+        if ($user->verifuser()) {
+            $mail = new mail();
+            $cle = md5(microtime(TRUE) * 3);
+            $user->insertUser($cle);
+        }
+
+    } else
+        echo "<script>alert('Veuillez remplir tous les champs')</script>";
 
 
 }
@@ -23,8 +30,9 @@ if (isset ($_POST['inscription']) && !empty ($_POST['prenom']) && !empty ($_POST
 ?>
 
 <form action="#" method="post">
-    <div><label for="login">Login:</label> <input name="prenom" type="text" id="login"></div>
-    <div><label for="login">Password:</label><input name="nom" type="password" id="password"></div>
+    <div><label for="prenom">Prenom:</label> <input name="prenom" type="text" id="prenom"></div>
+    <div><label for="nom">Nom:</label><input name="nom" type="text" id="nom"></div>
+    <div><label for="password">Password:</label><input name="password" type="password" id="password"></div>
     <div>
         <button name="inscription" type="submit">S'inscrire</button>
     </div>

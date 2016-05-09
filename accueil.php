@@ -5,8 +5,13 @@ require 'utilisateur.class.php';
 
 
 if (isset($_POST['connexion'])) {
-    $user = new utilisateur($_POST['login'], $_POST['password']);
+    $login = htmlspecialchars(trim($_POST['login']));
+    $pass = htmlspecialchars(trim($_POST['password']));
+    $user = new utilisateur();
+    $user->setLogin($login);
+    $user->setPassword($pass);
     $user->connexion();
+    var_dump($user);
 }
 if (isset($_SESSION['session'])) {
     echo '<form method="post"><button type="submit" name="deco">deconnexion</button></form>';

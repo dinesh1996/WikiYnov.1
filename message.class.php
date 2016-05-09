@@ -34,10 +34,11 @@ class message
     public function verifDesti()
     {
         $res = $this->DB->query("SELECT id_user FROM users WHERE prenom LIKE '$this->destinataire'");
-        if ($res->id_user != 0) {
+        if ($res == true) {
             $this->id_destin = $res->id_user;
             return true;
-        }
+        } else
+            return false;
     }
 
 
