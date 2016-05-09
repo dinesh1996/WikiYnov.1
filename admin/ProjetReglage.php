@@ -14,7 +14,14 @@ require '../article.php';
 $activearticle = new article();
 $getid = $_GET['id'];
 
-$activearticle = $activearticle->Vuprojet($getid);
+$activearticle = $activearticle->SeeOneProject($getid);
+if ($activearticle->last_update===NULL)
+
+{
+
+    $date= $activearticle->date;
+}
+else $date= $activearticle->last_update;
 
 
 ?>
@@ -33,15 +40,7 @@ $activearticle = $activearticle->Vuprojet($getid);
     <link href='https://fonts.googleapis.com/css?family=Oswald' rel='stylesheet' type='text/css'>
 </head>
 <body>
-<div class="header">
-    <a href="#" id="menu-action">
-        <i class="fa fa-bars"></i>
-        <span>Fermer</span>
-    </a>
-    <div class="logo">
-        Administration Ynov LoL Cup
-    </div>
-</div>
+ 
 
 
 <!-- Content -->
@@ -57,10 +56,26 @@ $activearticle = $activearticle->Vuprojet($getid);
         <div class="container">
             <div class="row">
                 <div class="col-xs-12">
-                    <button type="button" class="btn btn-info" name="button"><a href="ajouterarticle.php">Ajouter un
-                            article</a></button>
-                    <button type="button" class="btn btn-warning" name="button"><a href="ajoutercategorie.php">Ajouter
-                            une catégorie</a></button>
+                    <a href="AjouteArticle.php">
+                        <button type="button" class="btn btn-info" name="button"> Ajouter un
+                            article
+                        </button>
+                    </a>
+
+
+                    <a href="ajoutercatégories.php">
+                        <button type="button" class="btn btn-info" name="button"> Ajouter
+                            une catégorie
+                        </button>
+                    </a>
+
+
+                    <a href="index.php">
+                        <button type="button" class="btn btn-info" name="button"> Revenir à la liste
+                            des porjets
+                        </button>
+                    </a>
+
                     <br/><br/>
 
 
@@ -71,7 +86,7 @@ $activearticle = $activearticle->Vuprojet($getid);
 
 
                         <p> L' auteur : <?= $activearticle->auteur; ?></p>
-                        <p> Dernière mise à jour : <?= $activearticle->date; ?></p>
+                        <p> Dernière mise à jour : <?= $date; ?></p>
                         <p> Dans la catégorie : <?= $activearticle->categorie; ?></p>
 
                     </div>
@@ -92,30 +107,42 @@ $activearticle = $activearticle->Vuprojet($getid);
                             <tr>
 
                                 <!-- boutton modifier -->
-                                <td><?="<a href='modif.php?id={$activearticle->id}'  "?> class="cd-popup-trigger">Modifer</a>
+                                <td>
 
 
+                                    <a href='modif.php?id=<?= $activearticle->id ?>'>
+                                        <button class="btn btn-info" name="button">Modifer
+                                        </button>
+                                    </a>
+
+                                </td>
 
 
+                                <td>
 
-                                   </td>
+
+                                    <a href="#0">
+                                        <button name="button" class=" btn btn-info onoff">Activation</button>
+                                    </a>
+                                </td>
 
 
-                                <td><a href="#0" class="cd-popup-trigger onoff">Activation</a>
+                                <div class="cd-popup" role="alert">
+                                    <div class="cd-popup-container">
+                                        <p>Voulez-vous ?</p>
+                                        <ul class="cd-buttons" style="padding-left: 0em;">
+                                            <li>
 
-                                    <div class="cd-popup" role="alert">
-                                        <div class="cd-popup-container">
-                                            <p>Voulez-vous ?</p>
-                                            <ul class="cd-buttons" style="padding-left: 0em;">
-                                                <li>
-                                                    <a href="<?= "<a href='supprimeracticle.php?id={$activearticle->id}'>Activation</a>"; ?>">Activer</a>
-                                                </li>
-                                                <li> <?= "<a href='ProjetReglage.php?id={$activearticle->id}' "; ?> >
-                                                    Désactiver   </a></li>
-                                            </ul>
-                                            <a href="#0" class="cd-popup-close img-replace">Close</a>
-                                        </div> <!-- cd-popup-container -->
-                                    </div> <!-- cd-popup --></td>
+
+                                                <a href="activation.php?id=<?= $activearticle->id ?>&activation=0">Activation</a>
+                                            </li>
+                                            <li>
+                                                <a href="activation.php?id=<?= $activearticle->id ?>&activation=1">Desactivation</a>
+                                            </li>
+                                        </ul>
+                                        <a href="#0" class="cd-popup-close img-replace">Close</a>
+                                    </div> <!-- cd-popup-container -->
+                                </div> <!-- cd-popup --></td>
 
                             </tr>
 

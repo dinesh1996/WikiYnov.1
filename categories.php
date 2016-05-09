@@ -65,7 +65,7 @@ class categories
 
 
 
-    public function AdminVuCategorie()
+    public function AdminSeeSection()
     {
         require_once  'db.class.php';
         
@@ -87,7 +87,7 @@ class categories
 
 
 
-    public function AdminAjoutCategorie($nouvelcategorie)
+    public function AdminAddSection($nouvelcategorie)
     {
 
 
@@ -100,12 +100,8 @@ class categories
         $titre = $nouvelcategorie->getTitre();
 
 
-      
 
-        
-
-
-        $sql = "INSERT INTO projets (titre, date) VALUES (?, NOW())";
+        $sql = "INSERT INTO categories (titre, date) VALUES (?, NOW())";
         $stmt = $pdo->getBdd()->prepare($sql);
         $stmt->execute([$titre]);
 

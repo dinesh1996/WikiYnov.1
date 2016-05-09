@@ -8,6 +8,6 @@ require 'article.php';
 $supprojet = new article();
 $getid=$_GET['id'];
 
-$data = $supprojet->Supprimer($getid);
+$data = $supprojet->Delate($getid);
 echo 'done';
 ?>

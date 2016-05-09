@@ -17,7 +17,7 @@ ini_set("display_errors", 1);
 
 $nouvarticle = new article();
 $categoriechoix = new categories();
-$categoriechoix = $categoriechoix->AdminVuCategorie();
+$categoriechoix = $categoriechoix->AdminSeeSection();
 
 
 //$categories = $pdo->query("SELECT * FROM categories");
@@ -33,6 +33,16 @@ if (isset($_POST['addpost'])) {
     echo '</per>';
 
 
+
+
+    echo '<pre>';
+    echo var_dump($categoriechoix);
+    echo '</per>';
+
+
+
+
+
     //$sqlv = "SELECT username FROM users WHERE id LIKE ? ";
     //$req = $pdo->prepare($sqlv);
     //$req->execute($auteurid);
@@ -41,11 +51,11 @@ if (isset($_POST['addpost'])) {
     //$data = $req->fetch(PDO::FETCH_ASSOC);
     //$data = $data['username'];
 
-    $nouvarticle->Ajouter($nouvarticle);
+    $nouvarticle->Add($nouvarticle);
 
 
     echo "L'article a bien été ajouté";
-    echo '<script language="JavaScript" type="text/javascript">window.location.replace("AjouteArticle.php");</script>';
+    echo '<script language="JavaScript" type="text/javascript">window.location.replace("index.php");</script>';
 
 }
 
@@ -55,7 +65,7 @@ if (isset($_POST['addpost'])) {
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
     <title></title>
 
 <body>
@@ -98,11 +108,13 @@ if (isset($_POST['addpost'])) {
                     </select>
                 </div>
                 <div class="button-panel">
-                    <input type="submit" name="addpost" class="button" title="Ajouter un article"
+                    <input type="submit" name="addpost"   class="btn btn-info"  title="Ajouter un article"
                            value="Ajouter un article"></button>
                 </div>
             </form>
         </div>
+        <a href="index.php"> <button type="button" class="btn btn-info" name="button"> Revenir à la liste
+                des porjets </button></a>
     </div>
 </div>
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->

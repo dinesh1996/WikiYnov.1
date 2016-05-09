@@ -142,7 +142,7 @@ class article
     /**
      *
      */
-    public function Ajouter($nouvarticle)
+    public function Add($nouvarticle)
     {
 
         require_once 'db.class.php';
@@ -172,7 +172,7 @@ class article
     /**
      *
      */
-    public function Vu()
+    public function See()
     {
 
         require_once 'db.class.php';
@@ -193,7 +193,7 @@ class article
     }
 
 
-    public function AdminVu()
+    public function AdminSee()
     {
 
         require_once 'db.class.php';
@@ -214,7 +214,7 @@ class article
     }
 
 
-    public function Vuprojet($id)
+    public function SeeOneProject($id)
     {
 
         require_once 'db.class.php';
@@ -231,7 +231,22 @@ class article
     /**
      *
      */
-    public function Supprimer($id)
+    public function Delate($id)
+    {
+
+
+        require_once 'db.class.php';
+        $pdo = new DB();
+
+
+        $sql = "UPDATE projets SET active=?  WHERE id= ?";
+        $stmt = $pdo->getBdd()->prepare($sql);
+        $stmt->execute([FALSE, $id]);
+
+
+    }
+
+    public function Activation($id)
     {
 
 
@@ -242,10 +257,7 @@ class article
         $sql = "UPDATE projets SET active=?  WHERE id= ?";
         $stmt = $pdo->getBdd()->prepare($sql);
 
-        $resultat = $stmt->execute([FALSE, $id]);
-
-
-        return $resultat;
+        $stmt->execute([TRUE, $id]);
 
 
     }
@@ -254,18 +266,44 @@ class article
     /**
      *
      */
-    public function MiseAJour()
+    public function PrepareUpdate()
+
+
     {
         require_once 'db.class.php';
         $pdo = new DB();
 
 
-       
-    
-            $amodif = $pdo->query("SELECT * FROM projets WHERE id={$_GET['id']}");
-            return $amodif;
+        $amodif = $pdo->query("SELECT * FROM projets WHERE id={$_GET['id']}");
+        return $amodif;
 
-        
+
+    }
+
+
+    public function Update($articleAmodif)
+    {
+        require_once 'db.class.php';
+        $pdo = new DB();
+
+        $id = $_GET['id'];
+        $titre = $articleAmodif->getTitre();
+
+
+        //$auteur = $nouvarticle->getAuteur();
+        $auteur = 1;
+
+        $categorie = $articleAmodif->getCategorie();
+
+        $time = date("Y-m-d H:i:s");
+        $contenu = $articleAmodif->getContenu();
+        var_dump($id, $time);
+
+
+        $sql = ("UPDATE projets  SET  titre=?, auteur=?, categorie=?, contenu=?,last_update=? WHERE  id=$id");
+        $stmt = $pdo->getBdd()->prepare($sql);
+        $stmt->execute([$titre, $auteur, $categorie, $contenu, $time]);
+
 
     }
 }
