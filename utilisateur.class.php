@@ -77,6 +77,12 @@ class utilisateur
         $this->rang = $rang;
     }
 
+    public function modPassword($cle)
+    {
+        $this->DB->insert("UPDATE users SET password = '$this->password' WHERE cle = '$cle'");
+        return true;
+    }
+
     public function setLogin($login)
     {
         $this->login = $login;
@@ -90,6 +96,23 @@ class utilisateur
     public function modRang($id, $rang)
     {
         $this->DB->insert("UPDATE users SET rang = '$rang' WHERE id_user = '$id'");
+    }
+
+    public function mdpForget($dest)
+    {
+        $mail = new mail($dest);
+        $res = $this->DB->query("SELECT cle FROM users WHERE email = '$dest'");
+        if ($res == null) {
+            echo "<script>alert('Aucune adresse mail ne correspond')</script>";
+            return false;
+
+
+        } else {
+            $mail->setDesinataire($dest);
+            $mail->mailForget($res->cle);
+            return true;
+        }
+
     }
 
 }

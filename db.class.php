@@ -37,7 +37,7 @@ class DB
 
     public function query($sql)
     {
-        $req =$this->pdo->prepare($sql);
+        $req = $this->pdo->prepare($sql);
         $req->execute();
         return $req->fetch(PDO::FETCH_OBJ);
     }

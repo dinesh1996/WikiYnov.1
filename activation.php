@@ -13,7 +13,7 @@ foreach ($req as $cle):
         if ($cle->actif == 0) {
             $maj = $DB->insert("UPDATE users SET actif = 1  WHERE prenom = '$prenom' AND nom = '$nom'");
             echo "Felicitation votre compte a bien ete active !!!!</br>";
-            echo '<a href="accueil.php">Cliquez ici pour vous connecter!</a>';
+            echo '<a href="accueil.php?login=' . $prenom . '.' . $nom . '">Cliquez ici pour vous connecter!</a>';
         } else
             echo "votre compte a deja ete valide";
 
