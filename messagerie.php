@@ -15,8 +15,8 @@
 
 <?php
 session_start();
-require 'message.class.php';
-require 'utilisateur.class.php';
+require 'models/message.class.php';
+require 'models/utilisateur.class.php';
 
 if (!isset($_SESSION['session']))
     header('location:accueil.php');
@@ -25,10 +25,9 @@ if (isset($_POST['envoi'])) {
     if (!empty ($_POST['dest']) && !empty($_POST['message'])) {
         $destin = htmlspecialchars(trim($_POST['dest']));
         $mess = htmlspecialchars(addslashes($_POST['message']));
-        $db = new DB;
-        $ss =$_SESSION['session']['id'];
+        $session = $_SESSION['session']['id'];
 
-        $mes = new message($ss, $destin, $mess);
+        $mes = new message($session, $destin, $mess);
         if ($mes->insertMessage())
             echo '<script>alert(\'message bien envoyé\')</script>';
         else

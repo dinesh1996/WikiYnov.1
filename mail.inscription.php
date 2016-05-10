@@ -1,12 +1,12 @@
 <?php
-$message_ins= '
+$message_ins = '
 <!DOCTYPE html>
 <html>
 <header>
     <meta charset="utf-8">
    </header>
 <body>
-<p>Bienvenue sur le site de toto,</p>
+<p>Bienvenue,</p>
 </br>
 </br>
 <p>Pour confirmer la création de votre compte veuillez cliquer sur le lien ci dessous.</p>

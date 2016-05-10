@@ -11,7 +11,7 @@ class utilisateur
     private $rang;
 
 
-    public function __construct($prenom = null, $nom = null, $password = null, $email = null, $rang = 'abonné', $login = null, $DB = null)
+    public function __construct($prenom = null, $nom = null, $password = null, $email = null, $rang = null, $login = null, $DB = null)
     {
         $this->password = $pass = sha1("bonjour" . $password);
         $this->email = $prenom . "." . $nom . "@ynov.com";
@@ -25,21 +25,27 @@ class utilisateur
 
     public function verifuser()
     {
-
-        $res = $this->DB->requete("SELECT id_user FROM users WHERE prenom = '$this->prenom' AND nom = '$this->nom'");
+        $sql = "SELECT id_user FROM users WHERE prenom = ? AND nom = ?";
+        $stmt = $this->DB->getBDD()->prepare($sql);
+        $stmt->execute([$this->prenom,
+            $this->nom]);
+        $res = $stmt->fetchAll(PDO::FETCH_OBJ);
         if (count($res) == 0) {
             return true;
         } else
             echo '<script>alert("Votre compte existe déjà, veuillez contacter l\'administration.")</script>';
         return false;
-
     }
 
 
     public function connexion()
     {
-        $res = $this->DB->requete("SELECT * FROM users WHERE login = '$this->login' AND password = '$this->password' AND actif = true");
-
+        $sql = "SELECT * FROM users WHERE login = ? AND password = ? AND actif = true";
+        $stmt = $this->DB->getBDD()->prepare($sql);
+        $stmt->execute([$this->login,
+            $this->password]);
+        $res = $stmt->fetchAll(PDO::FETCH_OBJ);
+        var_dump($res);
         if (count($res) == 1) {
             foreach ($res as $cle):
                 $_SESSION['session'] = array(
@@ -50,14 +56,17 @@ class utilisateur
                     'rang' => $cle->rang
                 );
             endforeach;
-
-            var_dump($_SESSION);
-
-
         } else
             echo '<script>alert("Vos identifiants de connexion sont mauvais ou votre compte n\'a pas été activé.")</script>';
+    }
 
-
+    public function seeUser()
+    {
+        $sql = "SELECT * FROM users";
+        $stmt = $this->DB->getBDD()->prepare($sql);
+        $stmt->execute();
+        $req = $stmt->fetchAll(PDO::FETCH_OBJ);
+        return $req;
     }
 
     public function deconnexion()
@@ -69,7 +78,15 @@ class utilisateur
     {
         $mail = new mail;
         $mail->mailIns($this->email, $cle, $this->prenom, $this->nom);
-        $this->DB->insert("INSERT INTO users VALUES ('', '$this->prenom', '$this->nom','$this->email', '$cle', '0',  'abonné', '$this->login', '$this->password') ");
+        $sql = "INSERT INTO users VALUES ('', ?, ?,?, ?, '0',  'abonné', ?, ?) ";
+        $stmt = $this->DB->getBDD()->prepare($sql);
+        $stmt->execute([$this->prenom,
+            $this->nom,
+            $this->email,
+            $cle,
+            $this->login,
+            $this->password]);
+        return true;
     }
 
     public function setRang($rang)
@@ -79,7 +96,10 @@ class utilisateur
 
     public function modPassword($cle)
     {
-        $this->DB->insert("UPDATE users SET password = '$this->password' WHERE cle = '$cle'");
+        $sql = "UPDATE users SET password = ? WHERE cle = ?";
+        $stmt = $this->DB->getBDD()->prepare($sql);
+        $stmt->execute([$this->password,
+            $cle]);
         return true;
     }
 
@@ -95,24 +115,27 @@ class utilisateur
 
     public function modRang($id, $rang)
     {
-        $this->DB->insert("UPDATE users SET rang = '$rang' WHERE id_user = '$id'");
+        $sql = "UPDATE users SET rang = ? WHERE id_user = ?";
+        $stmt = $this->DB->getBDD()->prepare($sql);
+        $stmt->execute([$rang,
+            $id]);
     }
 
     public function mdpForget($dest)
     {
         $mail = new mail($dest);
-        $res = $this->DB->query("SELECT cle FROM users WHERE email = '$dest'");
+        $sql = "SELECT cle FROM users WHERE email = ?";
+        $stmt = $this->DB->getBDD()->prepare($sql);
+        $stmt->execute([$dest]);
+        $res = $stmt->fetch(PDO::FETCH_OBJ);
         if ($res == null) {
             echo "<script>alert('Aucune adresse mail ne correspond')</script>";
             return false;
-
-
         } else {
             $mail->setDesinataire($dest);
             $mail->mailForget($res->cle);
             return true;
         }
-
     }
 
 }
