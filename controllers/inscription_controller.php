@@ -1,8 +1,10 @@
 <?php
 session_start();
-require 'db.class.php';
-require 'utilisateur.class.php';
-require 'mail.class.php';
+require '../models/db.class.php';
+require '../models/mail.class.php';
+require '../views/includes/headerV.php';
+require '../views/inscription.php';
+
 
 if (isset ($_POST['inscription'])) {
 
@@ -11,8 +13,8 @@ if (isset ($_POST['inscription'])) {
         $prenom = strtolower(htmlspecialchars(trim($_POST['prenom'])));
         $nom = strtolower(htmlspecialchars(trim($_POST['nom'])));
         $pass = htmlspecialchars(trim($_POST['password']));
-       /* $email = $prenom . "." . $nom . "@ynov.com";
-        $login = $prenom . "." . $nom;*/
+        /* $email = $prenom . "." . $nom . "@ynov.com";
+         $login = $prenom . "." . $nom;*/
         $user = new utilisateur($prenom, $nom, $pass);
         var_dump($user);
         if ($user->verifuser()) {
@@ -27,13 +29,3 @@ if (isset ($_POST['inscription'])) {
 
 }
 
-?>
-
-<form action="#" method="post">
-    <div><label for="prenom">Prenom:</label> <input name="prenom" type="text" id="prenom"></div>
-    <div><label for="nom">Nom:</label><input name="nom" type="text" id="nom"></div>
-    <div><label for="password">Password:</label><input name="password" type="password" id="password"></div>
-    <div>
-        <button name="inscription" type="submit">S'inscrire</button>
-    </div>
-</form>

@@ -45,7 +45,6 @@ class utilisateur
         $stmt->execute([$this->login,
             $this->password]);
         $res = $stmt->fetchAll(PDO::FETCH_OBJ);
-        var_dump($res);
         if (count($res) == 1) {
             foreach ($res as $cle):
                 $_SESSION['session'] = array(
