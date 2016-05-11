@@ -3,11 +3,34 @@ error_reporting(E_ALL);
 ini_set("display_errors", 1);
 
 require 'models/article.php';
+require 'models/categories.php';
+
+
+error_reporting(E_ALL);
+ini_set("display_errors", 1);
+
+
 $vuarticle = new article();
+$categoriechoix = new categories();
+$categoriechoix = $categoriechoix->AdminSeeSection();
+
+if (isset($_POST['choixthématique'])) {
+    $cat = $_POST['categorie'];
 
 
-$resultat = $vuarticle->See();
+    $resultat = $vuarticle->Seewithcat($cat);
 
+
+    echo '<pre>';
+    var_dump($cat);
+    echo '</pre>';
+
+
+} else {
+
+
+    $resultat = $vuarticle->See();
+}
 
 echo '<pre>';
 var_dump($resultat);
@@ -30,6 +53,37 @@ echo '</pre>';
 <div class="posts-box posts-box-6">
     <div>
         <h2 class="title">Les articles publiés</h2>
+    </div>
+
+
+    <div>
+        <div class="form-post">
+
+            <form action="vu.php" method="POST" role="form">
+
+
+                <div class="form-item">
+                    <label for="categorie">Choisissez une catégorie</label>
+                    <select id="categorie" name="categorie">
+                        <?php foreach ($categoriechoix as $data): ?>
+                            <option value="<?php echo $data->titre; ?>"><?php echo $data->titre; ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+
+
+                <div class="button-panel">
+                    <input type="submit" name="choixthématique" class="btn btn-info" title="Ajouter un article"
+                           value="Ajouter un article"></button>
+                </div>
+
+
+            </form>
+
+
+        </div>
+
+
     </div>
     <div class="row">
         <div class="col-md-6 col-md-offset-3 post">
@@ -62,6 +116,7 @@ echo '</pre>';
             <?php endforeach; ?></div>
     </div>
 </div>
+
 
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>

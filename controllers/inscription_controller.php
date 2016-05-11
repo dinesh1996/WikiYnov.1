@@ -1,6 +1,5 @@
 <?php
 session_start();
-require '../models/db.class.php';
 require '../models/mail.class.php';
 require '../views/includes/headerV.php';
 require '../views/inscription.php';

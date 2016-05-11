@@ -17,5 +17,5 @@ foreach ($req as $utilisateur): ?>
 </body>
 </html>
 
-
+<?php require 'includes/footer.php'; ?>
 

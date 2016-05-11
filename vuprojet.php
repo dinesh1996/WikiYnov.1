@@ -52,6 +52,9 @@ if ($data->active != FALSE) {
 
             <a class="btn btn-warning button" href="vu.php">Revenir à la liste d'article</a>
 
+            <?php echo "<a    class='btn btn-warning button' href='comment_system/comment.php?id={$data->id}' >Voir les commentaires</a>" ?>
+
+
         </div>
     </div>
 

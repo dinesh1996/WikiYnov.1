@@ -13,18 +13,11 @@ class categories
     private $titre;
     private $date;
 
-
-    /**
-     * @return mixed
-     */
     public function getId()
     {
         return $this->id;
     }
 
-    /**
-     * @param mixed $id
-     */
     public function setId($id)
     {
         $this->id = $id;
@@ -66,41 +59,23 @@ class categories
     public function AdminSeeSection()
     {
         require_once 'db.class.php';
-
         $pdo = new DB();
-
-
         $sql = "SELECT * FROM  categories ";
         $stmt = $pdo->getBdd()->prepare($sql);
-
         $stmt->execute();
-
-
         $result = $stmt->fetchAll(PDO::FETCH_OBJ);
-
-
         return $result;
-
     }
 
 
     public function AdminAddSection($nouvelcategorie)
     {
-
-
         require_once 'db.class.php';
-
-
         $pdo = new DB();
-
         $titre = $nouvelcategorie->getTitre();
-
-
         $sql = "INSERT INTO categories (titre, date) VALUES (?, NOW())";
         $stmt = $pdo->getBdd()->prepare($sql);
         $stmt->execute([$titre]);
-
-
     }
 
 }

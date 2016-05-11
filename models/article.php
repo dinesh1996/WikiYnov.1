@@ -154,7 +154,8 @@ class article
 
 
         //$auteur = $nouvarticle->getAuteur();
-        $auteur = 1;
+        $auteur = $_SESSION['session']['id'];
+        var_dump($auteur);
 
         $categorie = $nouvarticle->getCategorie();
         // $categorie = 1;

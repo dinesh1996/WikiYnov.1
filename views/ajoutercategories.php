@@ -1,16 +1,5 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: ADM3
- * Date: 04/05/2016
- * Time: 10:07
- */
 
-
-require '../models/categories.php';
-require '../models/article.php';
-require '../tokens.php';
-require '../controllers/header_controller.php';
 
 error_reporting(E_ALL);
 ini_set("display_errors", 1);
@@ -36,14 +25,14 @@ if (isset($_POST['addpost'])) {
 
 
 ?>
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+    <!DOCTYPE html>
+    <html lang="fr">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
 
-    <title></title>
+        <title></title>
 
 <body>
 
@@ -73,17 +62,12 @@ if (isset($_POST['addpost'])) {
                 </div>
             </form>
         </div>
-        <a href="index.php">
+        <a href="../views/index.php">
             <button type="button" class="btn btn-info" name="button"> Revenir à la liste
                 des porjets
             </button>
         </a>
     </div>
 </div>
-<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-<!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-<script src="js/app.js"></script>
-</body>
-</html>
+
+<?php require 'includes/footer.php'; ?>

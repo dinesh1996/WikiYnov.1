@@ -8,12 +8,16 @@
 
 <?php
 
-require 'utilisateur.class.php';
-require 'db.class.php';
+require 'models/utilisateur.class.php';
+require 'models/db.class.php';
 
 $cle = htmlspecialchars($_GET['cle']);
 $user = new utilisateur();
-$res = $user->DB->query("SELECT * FROM users WHERE cle = '$cle'");
+$sql = "SELECT * FROM users WHERE cle = ?";
+$stmt = $user->DB->getBDD()->prepare($sql);
+$stmt->execute([$cle]);
+$res = $stmt->fetch(PDO::FETCH_OBJ);
+
 if ($res == null)
     echo "lien invalide";
 else { ?>
