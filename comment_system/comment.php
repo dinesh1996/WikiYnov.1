@@ -1,14 +1,12 @@
-<!doctype html>
-<html lang="en">
-<head>
+<?php session_start();
+if (isset($_SESSION)) {
 
+    if ($_SESSION['session']['rang'] == "admin")
+        require "../controllers/header_controller.php";
+} else
+    require "../controllers/accueil_controller.php";
 
-    <meta charset="UTF-8">
-    <title>Document</title>
-</head>
-<body>
-
-
+?>
 <div id="main">
 
 
@@ -62,6 +60,7 @@
 <script src="https://code.jquery.com/jquery-1.12.3.min.js"
         integrity="sha256-aaODHAgvwQW1bFOGXMeX+pC4PZIPsvn2h1sArYOhgXQ=" crossorigin="anonymous"></script>
 <script src="app.js"></script>
+
 
 </body>
 </html>

@@ -5,8 +5,8 @@ ini_set("display_errors", 1);
 
 $activearticle = new article();
 $getid = $_GET['id'];
-
 $activearticle = $activearticle->SeeOneProject($getid);
+
 if ($activearticle->last_update === NULL) {
 
     $date = $activearticle->date;
@@ -59,7 +59,7 @@ if ($activearticle->last_update === NULL) {
                             <h1><?= $activearticle->titre; ?></h1>
 
 
-                            <p> L' auteur : <?= $activearticle->auteur; ?></p>
+                            <p> L' auteur : <?= ucfirst($activearticle->prenom). " ". strtoupper($activearticle->nom); ?></p>
                             <p> Dernière mise à jour : <?= $date; ?></p>
                             <p> Dans la catégorie : <?= $activearticle->categorie; ?></p>
 
@@ -108,10 +108,10 @@ if ($activearticle->last_update === NULL) {
                                                 <li>
 
 
-                                                    <a href="activation.php?id=<?= $activearticle->id ?>&activation=0">Activation</a>
+                                                    <a href="../views/activation.php?id=<?= $activearticle->id ?>&activation=0">Activation</a>
                                                 </li>
                                                 <li>
-                                                    <a href="activation.php?id=<?= $activearticle->id ?>&activation=1">Desactivation</a>
+                                                    <a href="../views/activation.php?id=<?= $activearticle->id ?>&activation=1">Desactivation</a>
                                                 </li>
                                             </ul>
                                             <a href="#0" class="cd-popup-close img-replace">Close</a>

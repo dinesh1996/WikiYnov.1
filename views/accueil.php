@@ -1,7 +1,7 @@
 <div class="contenaire">
     <div id="contenaire_accueil">
         <h1>Connexion</h1>
-        <form action="" method="post">
+        <form action="../controllers/accueil_controller.php" method="post">
             <input name="login" placeholder="Login" id="login" value="<?php if (isset($login)) echo $login ?>"
                    type="text"><br>
 

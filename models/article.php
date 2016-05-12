@@ -144,30 +144,15 @@ class article
      */
     public function Add($nouvarticle)
     {
-
         require_once 'db.class.php';
-
-
         $pdo = new DB();
-
-        $titre = $nouvarticle->getTitre();
-
-
-        //$auteur = $nouvarticle->getAuteur();
+        $titre = strtolower($nouvarticle->getTitre());
         $auteur = $_SESSION['session']['id'];
-        var_dump($auteur);
-
         $categorie = $nouvarticle->getCategorie();
-        // $categorie = 1;
-
         $contenu = $nouvarticle->getContenu();
-
-
         $sql = "INSERT INTO projets (titre, auteur, categorie, contenu, date) VALUES (?, ?, ?, ?, NOW())";
         $stmt = $pdo->getBdd()->prepare($sql);
         $stmt->execute([$titre, $auteur, $categorie, $contenu]);
-
-
     }
 
     /**
@@ -180,7 +165,7 @@ class article
         $pdo = new DB();
 
 
-        $sql = "SELECT * FROM  projets  WHERE active= ?";
+        $sql = "SELECT * FROM users u INNER  JOIN projets p ON u.id_user = p.auteur  AND p.active LIKE ? ";
         $stmt = $pdo->getBdd()->prepare($sql);
 
         $stmt->execute([true]);
@@ -217,11 +202,9 @@ class article
 
     public function SeeOneProject($id)
     {
-
         require_once 'db.class.php';
         $pdo = new DB();
-
-        $sqlv = "SELECT * FROM projets WHERE id LIKE ? ";
+        $sqlv = "SELECT * FROM projets p INNER JOIN users u WHERE p.id = ?";
         $req = $pdo->getBdd()->prepare($sqlv);
         $req->execute([$id]);
         $resultat = $req->fetch(PDO::FETCH_OBJ);
@@ -229,9 +212,6 @@ class article
     }
 
 
-    /**
-     *
-     */
     public function Delate($id)
     {
 
@@ -303,6 +283,41 @@ class article
         $sql = ("UPDATE projets  SET  titre=?, auteur=?, categorie=?, contenu=?,last_update=? WHERE  id=$id");
         $stmt = $pdo->getBdd()->prepare($sql);
         $stmt->execute([$titre, $auteur, $categorie, $contenu, $time]);
+
+
+    }
+
+
+    public function recherche($rech)
+    {
+        require_once 'db.class.php';
+        $pdo = new DB();
+        $sql = "SELECT * FROM projets WHERE titre LIKE ? OR contenu LIKE ?  ";
+        $stmt = $pdo->getBDD()->prepare($sql);
+        $res = $stmt->execute(['%' . $rech . '%', '%' . $rech . '%']);
+        $res = $stmt->fetchAll(PDO::FETCH_OBJ);
+        return $res;
+    }
+
+    public function Seewithcat($cat)
+    {
+        $pdo = new DB();
+        $sql = "SELECT * FROM users u INNER  JOIN projets p ON u.id_user = p.auteur  AND p.active LIKE ? AND categorie LIKE ?";
+        $stmt = $pdo->getBDD()->prepare($sql);
+        $stmt->execute([true, $cat]);
+        $res = $stmt->fetchAll(PDO::FETCH_OBJ);
+        return $res;
+
+    }
+
+    public function affName($id)
+    {
+        $pdo = new DB();
+        $sql = "SELECT prenom, nom FROM users u INNER  JOIN projets p ON u.id_user = p.auteur AND p.id = ? ";
+        $stmt = $pdo->getBDD()->prepare($sql);
+        $stmt->execute([$id]);
+        $res = $stmt->fetch(PDO::FETCH_OBJ);
+        return $res;
 
 
     }

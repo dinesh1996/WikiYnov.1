@@ -1,8 +1,12 @@
+<?php
+require_once '../models/utilisateur.class.php';
+require_once '../models/db.class.php';
+?>
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Voiture</title>
+    <title>Wik'Ynov</title>
     <link rel="icon" type="image/png" href="../assets/images/favi.jpg"/>
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     <link rel="stylesheet" href="../assets/stylesheets/stylesheets.css">
@@ -30,9 +34,8 @@
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                            aria-expanded="false">Utilisateurs <span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li><a href="">Messagerie</a></li>
+                            <li><a href="messagerie_controller.php">Messagerie</a></li>
                             <li><a href="droitusers_controller.php">Droit utilisateur</a></li>
-                            <li><a href="index_controller.php">Voir</a></li>
                         </ul>
                     </li>
                     <li class="dropdown">
@@ -41,15 +44,16 @@
                         <ul class="dropdown-menu">
                             <li><a href="ajoutearticle_controller.php">Ajouter article</a></li>
                             <li><a href="ajoutercategories_controller.php">Ajouter catégorie</a></li>
-                            <li><a href="index_controller.php">Voir</a></li>
+                            <li><a href="index_controller.php">Administrer</a></li>
+                            <li><a href="../controllers/vu_controller.php">Vu publique</a></li>
                         </ul>
                     </li>
                 </ul>
-                <form class="navbar-form navbar-left" role="search">
+                <form class="navbar-form navbar-left" action="affichresul_controller.php" role="search">
                     <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Search">
+                        <input type="text" class="form-control" name="rechercher" placeholder="Rechercher">
                     </div>
-                    <button type="submit" class="btn btn-default">Submit</button>
+                    <button type="submit" name="gorech" class="btn btn-default">Submit</button>
                 </form>
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="#"><?php if (isset($_SESSION['session'])) {

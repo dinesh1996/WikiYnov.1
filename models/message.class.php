@@ -1,6 +1,6 @@
 <?php
 
-require 'db.class.php';
+//require 'db.class.php';
 
 class message
 {
@@ -71,9 +71,13 @@ class message
 
     public function seeExped($db, $id)
     {
-        $sql = "SELECT DISTINCT nom, prenom, id_exped FROM message m INNER JOIN users u ON u.id_user = m.id_exped AND m.id_desti = ? ";
+        $sql = "SELECT * FROM message m, users u
+WHERE m.id_desti = u.id_user
+OR m.id_exped = u.id_user
+AND id_user = 8
+GROUP BY id_user ";
         $stmt = $db->getBDD()->prepare($sql);
-        $stmt->execute([$id]);
+        $stmt->execute([$id, $id]);
         $res = $stmt->fetchALL(PDO::FETCH_OBJ);
         return $res;
     }

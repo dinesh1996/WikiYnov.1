@@ -104,4 +104,5 @@ if (isset($_POST['addpost'])) {
         </a>
     </div>
 </div>
+
 <?php require 'includes/footer.php'; ?>

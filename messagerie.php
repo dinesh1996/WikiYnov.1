@@ -5,11 +5,7 @@
     <title>Document</title>
 </head>
 <body>
-<form method="post">
-    <input type="text" name="dest" placeholder="destinataire">
-    <textarea name="message" id="" cols="30" rows="10"></textarea>
-    <button type="submit" name="envoi">Envoyer</button>
-</form>
+
 </body>
 </html>
 

@@ -1,16 +1,15 @@
 <?php
-require '../models/utilisateur.class.php'; ?>
+require_once '../models/utilisateur.class.php';
+require_once '../models/db.class.php';
+?>
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
-    <title></title>
+    <title>Wik'Ynov</title>
     <link rel="icon" type="image/png" href="../assets/images/favi.jpg"/>
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-
     <link rel="stylesheet" href="../assets/stylesheets/stylesheets.css">
-
-
 </head>
 <body>
 <header>
@@ -25,13 +24,24 @@ require '../models/utilisateur.class.php'; ?>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">Brand</a>
+                <p class="navbar-brand">Wik'Ynov</p>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
-                    <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
+
+                    <li><a href="messagerie_controller.php">Messagerie</a></li>
+                    <li><a href="../controllers/vu_controller.php">Article</a></li>
+                </ul>
+
+                <form class="navbar-form navbar-left" action="affichresul_controller.php" role="search">
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="rechercher" placeholder="Rechercher">
+                    </div>
+                    <button type="submit" name="gorech" class="btn btn-default">Submit</button>
+                </form>
+                <ul class="nav navbar-nav navbar-right">
                     <li><a href="#"><?php if (isset($_SESSION['session'])) {
                                 echo '<form method="post"><button type="submit" name="deco">deconnexion</button></form>';
                                 if (isset($_POST['deco'])) {
@@ -40,44 +50,8 @@ require '../models/utilisateur.class.php'; ?>
                                     echo '<script>document.location = "accueil_controller.php"</script>';
                                 }
                             } ?></a></li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                           aria-expanded="false">Dropdown <span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="#">Action</a></li>
-                            <li><a href="#">Another action</a></li>
-                            <li><a href="#">Something else here</a></li>
-                            <li role="separator" class="divider"></li>
-                            <li><a href="#">Separated link</a></li>
-                            <li role="separator" class="divider"></li>
-                            <li><a href="#">One more separated link</a></li>
-                        </ul>
-                    </li>
                 </ul>
-                <form class="navbar-form navbar-left" role="search">
-                    <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Search">
-                    </div>
-                    <button type="submit" class="btn btn-default">Submit</button>
-                </form>
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a href="#">Link</a></li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                           aria-expanded="false">Dropdown <span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="#">Action</a></li>
-                            <li><a href="#">Another action</a></li>
-                            <li><a href="#">Something else here</a></li>
-                            <li role="separator" class="divider"></li>
-                            <li><a href="#">Separated link</a></li>
-                            <li><a href="#">
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-            </div><!-- /.navbar - collapse-->
-        </div><!-- /.container - fluid-->
+            </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
     </nav>
 </header>

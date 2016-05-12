@@ -18,5 +18,7 @@ if ($_GET['activation'] === 1) {
     $data = $supprojet->Activation($getid);
 
 }
-echo '<script type="text/javascript">window.location.replace("index.php");</script>';
+echo '<script type="text/javascript">window.location.replace("../controllers/index_controller.php");</script>';
 ?>
+
+

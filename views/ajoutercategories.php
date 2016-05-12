@@ -14,7 +14,7 @@ if (isset($_POST['addpost'])) {
         $categoriechoix->AdminAddSection($categoriechoix);
 
         echo "<script>alert('Catégorie bien ajoutée!')</script>";
-        echo '<script language="JavaScript" type="text/javascript">window.location.replace("index.php");</script>';
+        echo '<script language="JavaScript" type="text/javascript">window.location.replace("index_controller.php");</script>';
 
     } else {
         echo "failed";
@@ -25,19 +25,7 @@ if (isset($_POST['addpost'])) {
 
 
 ?>
-    <!DOCTYPE html>
-    <html lang="fr">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
 
-        <title></title>
-
-<body>
-
-
-<!-- Content -->
 <div class="main">
     <div class="hipsum">
         <div class="jumbotron">
@@ -47,7 +35,7 @@ if (isset($_POST['addpost'])) {
         </div>
         <div class="form-post">
 
-            <form action="ajoutercategories.php" method="post" role="form">
+            <form action="ajoutercategories_controller.php" method="post" role="form">
                 <div class="form-item">
                     <label for="titre">Le titre :</label>
                     <input type="text" id="titre" name="titre" required="required" placeholder="Titre"></div>
