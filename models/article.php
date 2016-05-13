@@ -220,7 +220,7 @@ class article
         $pdo = new DB();
 
 
-        $sql = "UPDATE projets SET active=?  WHERE id= ?";
+        $sql = "UPDATE projets SET active= ?  WHERE id= ?";
         $stmt = $pdo->getBdd()->prepare($sql);
         $stmt->execute([FALSE, $id]);
 
@@ -244,9 +244,6 @@ class article
     }
 
 
-    /**
-     *
-     */
     public function PrepareUpdate()
 
 
@@ -318,6 +315,25 @@ class article
         $stmt->execute([$id]);
         $res = $stmt->fetch(PDO::FETCH_OBJ);
         return $res;
+
+
+    }
+
+
+    public function selectLastid()
+    {
+
+
+        $pdo = new DB();
+        $sql = "SELECT id FROM projets ORDER BY id DESC LIMIT 1";
+        $stmt = $pdo->getBDD()->prepare($sql);
+        $stmt->execute([]);
+        $res = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $res;
+
+
+
+
 
 
     }

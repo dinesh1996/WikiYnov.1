@@ -53,11 +53,11 @@ require_once '../models/db.class.php';
                     <div class="form-group">
                         <input type="text" class="form-control" name="rechercher" placeholder="Rechercher">
                     </div>
-                    <button type="submit" name="gorech" class="btn btn-default">Submit</button>
+                    <button type="submit" name="gorech" class="btn btn-default"><div class="glyphicon glyphicon-search"></div></button>
                 </form>
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="#"><?php if (isset($_SESSION['session'])) {
-                                echo '<form method="post"><button type="submit" name="deco">deconnexion</button></form>';
+                                echo '<form method="post"><button type="submit" name="deco"><div class="glyphicon glyphicon-off"></div></button></form>';
                                 if (isset($_POST['deco'])) {
                                     $user = new utilisateur($_SESSION['session']['prenom'], $_SESSION['session']['nom']);
                                     $user->deconnexion();

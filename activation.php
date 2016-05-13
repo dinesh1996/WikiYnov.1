@@ -1,5 +1,5 @@
 <?php
-require 'db.class.php';
+require 'models/db.class.php';
 
 $DB = new DB();
 
@@ -22,7 +22,7 @@ foreach ($req as $cle):
                 $nom]);
             //$maj = $DB->insert("UPDATE users SET actif = 1  WHERE prenom = '$prenom' AND nom = '$nom'");
             echo "Felicitation votre compte a bien ete active !!!!</br>";
-            echo '<a href="accueil.php?login=' . $prenom . '.' . $nom . '">Cliquez ici pour vous connecter!</a>';
+            echo '<a href="controllers/accueil_controller.php?login=' . $prenom . '.' . $nom . '">Cliquez ici pour vous connecter!</a>';
         } else
             echo "votre compte a deja ete valide";
     } else

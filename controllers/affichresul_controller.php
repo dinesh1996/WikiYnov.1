@@ -25,9 +25,20 @@ if (isset($_SESSION['session'])) {
             require "../views/affichageresul.php";
         }
 
-    } elseif ($_SESSION['session']['rang'] === "abonné")
+    } elseif ($_SESSION['session']['rang'] === "abonné"){
         require "../views/includes/headerV.php";
+        $vuarticle = new article();
+        $categoriechoix = new categories();
+        //$id = htmlentities($_GET['id']);
 
+        if (isset($_GET['gorech']) && !empty($_GET['rechercher'])) {
+            $rech = htmlentities(addslashes(strtolower($_GET['rechercher'])));
+            $resultat = $vuarticle->recherche($rech);
+            //$nom = $vuarticle->affName($id);
+            require "../views/affichageresul.php";
+        }
+
+    }
 
 } else
     header('location:accueil_controller.php');

@@ -97,8 +97,12 @@ class uploding
     }
 
 
-    public function Add($addfile)
+    public function Add($addfile,$idprojet)
     {
+
+        $idprojet = (string) $idprojet;
+
+
 
         require_once 'db.class.php';
 
@@ -111,10 +115,73 @@ class uploding
 
 
 
-        $sql = "INSERT INTO uploadfile (name, date) VALUES ( ?, NOW())";
+        $sql = "INSERT INTO uploadfile (name, idproject, date) VALUES ( ?,?, NOW())";
         $stmt = $pdo->getBdd()->prepare($sql);
-        $stmt->execute([$name]);
+        $stmt->execute([$name,$idprojet]);
 
+
+
+    }
+
+    public function Seeimage()
+    {
+
+
+        require_once 'db.class.php';
+        $pdo = new DB();
+        $id = $_GET['id'];
+
+
+        $sql = "SELECT name FROM uploadfile  WHERE  idproject= ? AND  name LIKE ?  ";
+        $stmt = $pdo->getBdd()->prepare($sql);
+
+        $stmt->execute([$id,'%' . 'image' . '%']);
+
+
+        $result = $stmt->fetch(PDO::FETCH_OBJ);
+
+        return $result;
+
+    }
+
+    public function Seevideo()
+    {
+
+
+        require_once 'db.class.php';
+        $pdo = new DB();
+        $id = $_GET['id'];
+
+
+        $sql = "SELECT name FROM uploadfile  WHERE  idproject= ? AND  name LIKE ? ";
+        $stmt = $pdo->getBdd()->prepare($sql);
+
+        $stmt->execute([$id,'%' . 'video' . '%']);
+
+
+        $result = $stmt->fetch(PDO::FETCH_OBJ);
+
+        return $result;
+
+    }
+    public function Seepdf()
+    {
+
+
+        require_once 'db.class.php';
+        $pdo = new DB();
+        $id = $_GET['id'];
+
+
+        $sql = "SELECT name FROM uploadfile  WHERE  idproject= ? AND  name LIKE ? ";
+        $stmt = $pdo->getBdd()->prepare($sql);
+
+        $stmt->execute([$id,'%' . 'pdf' . '%']);
+
+
+        $result = $stmt->fetch(PDO::FETCH_OBJ);
+
+        return $result;
 
     }
 }

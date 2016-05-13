@@ -8,16 +8,32 @@ class message
     private $destinataire;
     private $message;
     public $id_destin;
+    private $destnom;
+    private $destprenom;
     public $DB;
 
-    public function __construct($expediteur = null, $destinataire = null, $message = null, $id_destin = null)
+    public function __construct($expediteur = null, $message = null, $destnom = null, $destprenom = null, $destinataire = null, $id_destin = null)
     {
         $this->expediteur = $expediteur;
         $this->destinataire = $destinataire;
+        $this->destnom = $destnom;
+        $this->destprenom = $destprenom;
         $this->message = $message;
         $this->id_destin = $id_destin;
         $this->DB = new DB();
     }
+
+
+    public function setIdDestin($id_destin)
+    {
+        $this->id_destin = $id_destin;
+    }
+
+    public function setMessage($message)
+    {
+        $this->message = $message;
+    }
+
 
     public function insertMessage()
     {
@@ -44,9 +60,9 @@ class message
 
     public function verifDesti()
     {
-        $sql = "SELECT id_user FROM users WHERE login LIKE ?";
+        $sql = "SELECT id_user FROM users WHERE prenom LIKE ? AND nom like ?";
         $stmt = $this->DB->getBDD()->prepare($sql);
-        $stmt->execute([$this->destinataire]);
+        $stmt->execute([$this->destprenom, $this->destnom]);
         $res = $stmt->fetch(PDO::FETCH_OBJ);
         if ($res == true) {
             $this->id_destin = $res->id_user;
@@ -59,7 +75,7 @@ class message
     {
         $id = $_SESSION['session']['id'];
         $sql = "SELECT * FROM message m INNER JOIN users u ON (u.id_user = m.id_exped
- AND  m.id_desti = ? AND m.id_exped = ?) OR (u.id_user = m.id_desti AND m.id_desti = ? AND m.id_exped = ?)";
+ AND  m.id_desti = ? AND m.id_exped = ?) OR (u.id_user = m.id_desti AND m.id_desti = ? AND m.id_exped = ?)  ORDER BY m.id_message    ";
         $stmt = $db->getBDD()->prepare($sql);
         $stmt->execute([$id,
             $exped,
@@ -74,11 +90,12 @@ class message
         $sql = "SELECT * FROM message m, users u
 WHERE m.id_desti = u.id_user
 OR m.id_exped = u.id_user
-AND id_user = 8
+AND id_user = ?
 GROUP BY id_user ";
         $stmt = $db->getBDD()->prepare($sql);
-        $stmt->execute([$id, $id]);
+        $stmt->execute([$id]);
         $res = $stmt->fetchALL(PDO::FETCH_OBJ);
+        //var_dump($id);
         return $res;
     }
 }

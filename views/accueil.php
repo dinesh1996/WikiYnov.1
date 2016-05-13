@@ -18,7 +18,9 @@
  <button name ='reinit' type = 'submit' >Ok</button ></form > ";
         }
         ?> </div>
+
 </div>
+
 
 <?php require 'includes/footer.php'; ?>
 

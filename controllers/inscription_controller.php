@@ -15,7 +15,7 @@ if (isset ($_POST['inscription'])) {
         /* $email = $prenom . "." . $nom . "@ynov.com";
          $login = $prenom . "." . $nom;*/
         $user = new utilisateur($prenom, $nom, $pass);
-        var_dump($user);
+       // var_dump($user);
         if ($user->verifuser()) {
             $mail = new mail();
             $cle = md5(microtime(TRUE) * 3);

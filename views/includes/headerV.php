@@ -1,6 +1,7 @@
 <?php
 require_once '../models/utilisateur.class.php';
 require_once '../models/db.class.php';
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -50,6 +51,10 @@ require_once '../models/db.class.php';
                                     echo '<script>document.location = "accueil_controller.php"</script>';
                                 }
                             } ?></a></li>
+                    <li><form action="inscription_controller.php">
+                        <button>Inscription</button>
+                    </form>
+                    </li>
                 </ul>
             </div><!-- /.navbar-collapse -->
         </div><!-- /.container-fluid -->

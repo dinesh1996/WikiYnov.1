@@ -12,3 +12,5 @@ if ($_SESSION['session']['rang'] === 'auteur' || $_SESSION['session']['rang'] ==
     require '../views/AjouteArticle.php';
 else
     header('location:../controllers/accueil_controller.php');
+
+
